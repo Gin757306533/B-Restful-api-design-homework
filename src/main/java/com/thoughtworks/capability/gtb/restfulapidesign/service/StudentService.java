@@ -18,4 +18,8 @@ public class StudentService {
     public void createStudent(Student student){
         this.studentMap.put(student.getId(), student);
     }
+
+    public Student getStudentById(String id){
+        return this.studentMap.get(id);
+    }
 }
