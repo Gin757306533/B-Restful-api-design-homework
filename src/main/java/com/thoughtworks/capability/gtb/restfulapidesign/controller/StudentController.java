@@ -1,6 +1,7 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.controller;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.dto.Student;
+import com.thoughtworks.capability.gtb.restfulapidesign.dto.Team;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +44,8 @@ public class StudentController {
         studentService.updateStudentById(id, student);
     }
 
-
+    @GetMapping("/teams")
+    public List<Team> getTeamList(){
+        return studentService.getTeamList();
+    }
 }
