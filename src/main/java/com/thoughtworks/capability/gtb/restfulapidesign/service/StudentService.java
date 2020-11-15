@@ -12,10 +12,19 @@ public class StudentService {
 
     private Map<String, Student> studentMap;
     private int biggestStudentId;
+    private Map<String, Team> teamMap;
 
     public StudentService() {
         this.studentMap = new HashMap<>();
         biggestStudentId = 0;
+        this.teamMap = new HashMap<>();
+        for(int index = 0; index< 6; index++){
+            this.teamMap.put(String.valueOf(index+1),
+                    Team.builder()
+                    .id(String.valueOf(index+1))
+                    .teamMembers(new ArrayList<>())
+                    .build());
+        }
     }
 
     public void createStudent(Student student){
@@ -56,20 +65,19 @@ public class StudentService {
     }
 
     public List<Team> getTeamList() {
-        List<Team> teams = new ArrayList<>(6);
-        for(int index = 0; index< 6; index++){
-            teams.add(Team.builder()
-                    .id(String.valueOf(index+1))
-                    .teamMembers(new ArrayList<>())
-                    .build());
-        }
         int teamIndex = 0;
         for(Student student: studentMap.values()){
             if(teamIndex == 6){
                 teamIndex = 0;
             }
-            teams.get(teamIndex).getTeamMembers().add(student);
+            teamMap.get(teamIndex).getTeamMembers().add(student);
         }
-        return teams;
+        return teamMap.values().stream().collect(Collectors.toList());
+    }
+
+    public void updateTeamName(String id, Team team) {
+        if(team.getName() != null){
+            this.teamMap.get(id).setName(team.getName());
+        }
     }
 }

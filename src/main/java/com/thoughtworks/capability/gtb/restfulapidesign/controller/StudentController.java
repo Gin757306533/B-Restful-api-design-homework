@@ -48,4 +48,10 @@ public class StudentController {
     public List<Team> getTeamList(){
         return studentService.getTeamList();
     }
+
+    @PatchMapping("/teams/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updateTeamName(@PathVariable String id, @RequestBody Team team){
+        studentService.updateTeamName(id, team);
+    }
 }
