@@ -3,10 +3,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 import com.thoughtworks.capability.gtb.restfulapidesign.dto.Student;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +34,19 @@ public class StudentService {
             return studentMap.values().stream().filter(student ->
                     student.getGender().equals(gender))
                     .collect(Collectors.toList());
+        }
+    }
+
+    public void updateStudentById(String id, Student student) {
+        Student originStudent = studentMap.get(id);
+        if(student.getGender() != null){
+            originStudent.setGender(student.getGender());
+        }
+        if(student.getName() != null){
+            originStudent.setName(student.getName());
+        }
+        if(student.getNote() != null){
+            originStudent.setNote(student.getNote());
         }
     }
 }

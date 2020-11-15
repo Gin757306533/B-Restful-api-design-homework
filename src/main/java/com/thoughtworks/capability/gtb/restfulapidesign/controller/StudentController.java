@@ -2,6 +2,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.controller;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.dto.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.StudentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class StudentController {
     }
 
     @PostMapping("/students")
+    @ResponseStatus(HttpStatus.CREATED)
     public void createStudent(@RequestBody Student student){
         studentService.createStudent(student);
     }
@@ -31,7 +33,15 @@ public class StudentController {
     }
 
     @GetMapping("/students")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public List<Student> getStudentListByGenderOrNull(@RequestParam(required = false) String gender){
         return studentService.getStudentListByGenderOrNull(gender);
     }
+
+    @PatchMapping("/students/{id}")
+    public void updateStudentById(@PathVariable String id, @RequestBody Student student){
+        studentService.updateStudentById(id, student);
+    }
+
+
 }
